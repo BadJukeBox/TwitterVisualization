@@ -1,14 +1,16 @@
 # Import the necessary methods from tweepy library
+import linecache
+
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
 # Variables that contains the user credentials to access Twitter API
-access_token = ""
-access_token_secret = ""
-consumer_key = ""
-consumer_secret = ""
-
+creds = open("../credentials.txt", "r")
+access_token = creds.readline().rstrip()
+access_token_secret = creds.readline().rstrip()
+consumer_key = creds.readline().rstrip()
+consumer_secret = creds.readline()
 
 # This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
