@@ -12,9 +12,8 @@ access_token_secret = creds.readline().rstrip()
 consumer_key = creds.readline().rstrip()
 consumer_secret = creds.readline()
 
-# This is a basic listener that just prints received tweets to stdout.
-class StdOutListener(StreamListener):
 
+class StdOutListener(StreamListener):
     def on_data(self, data):
         print(data)
         return True
