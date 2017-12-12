@@ -22,6 +22,10 @@ function filterBy(hour) {
     document.getElementById('Hour').textContent = hours[hour];
 }
 
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
+
 map.on('load', function() {
 
     d3.json('http://localhost:8000/Data/SDGeoPoints.geojson', function(err, data) {
@@ -71,10 +75,11 @@ map.on('load', function() {
                 },
             }
         }, 'waterway-label');
-        filterBy(0);
+        filterBy("00");
 
         document.getElementById('slider').addEventListener('input', function(e) {
-            var hour = parseInt(e.target.value, 10);
+            var hour = pad(e.target.value);
+            console.log(hour);
             filterBy(hour);
         });
     });
