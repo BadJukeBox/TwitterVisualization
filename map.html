@@ -56,99 +56,23 @@
 
 <div id='map'></div>
 
-<script>
-mapboxgl.accessToken = '';
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v9',
-    center: [-117.25, 32.77],
-    zoom: 11.5
-});
 
-var hours = [
-    '00'
-    '01'
-    '02'
-    '03'
-    '04'
-    '05'
-    '06'
-    '07'
-    '08'
-    '09'
-    '10'
-    '11'
-    '12'
-    '13'
-    '14'
-    '15'
-    '16'
-    '17'
-    '18'
-    '19'
-    '20'
-    '21'
-    '22'
-    '23'
-];
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <h2>San Diego Tweets over 24 Hours</h2>
+        <label id='Hour'></label>
+        <input id='slider' type='range' min='0' max='23' step='1' value='0' />
+    </div>
+    <div class='map-overlay-inner'>
+        <div id='legend' class='legend'>
+            <div class='bar'></div>
+            <div>Density (Tweets)</div>
+        </div>
+    </div>
+</div>
 
-function filterBy(hour) {
-
-    var filters = ['==', 'hour', hour];
-    map.setFilter('tweet-circles', filters);
-    map.setFilter('tweet-labels', filters);
-
-    // Set the label to the hour
-    document.getElementById('hour').textContent = hours[hour];
-}
-
-map.on('load', function() {
-    map.addSource('tweets', {
-        "type": "geojson",
-        "data": "http://localhost:8000/Data/points_sd.geojson"
-    });
-    console.log("success");
-    map.addLayer({
-        "id": "tweets-heat",
-        "type": "heatmap",
-        "source": "tweets",
-        "maxzoom": 20,
-        "paint": {
-            "heatmap-weight": {
-                "property": "coordinates",
-                "type": "exponential",
-                "stops": [
-                    [0, 0],
-                    [6, 1]
-                ]
-            },
-            "heatmap-intensity": {
-                "stops": [
-                    [0, 1],
-                    [9, 3]
-                ]
-            },
-            "heatmap-color": [
-                "interpolate",
-                ["linear"],
-                ["heatmap-density"],
-                0, "rgba(33,102,172,0)",
-                0.2, "rgb(103,169,207)",
-                0.4, "rgb(209,229,240)",
-                0.6, "rgb(253,219,199)",
-                0.8, "rgb(239,138,98)",
-                1, "rgb(178,24,43)"
-            ],
-            "heatmap-radius": {
-                "stops": [
-                    [0, 2],
-                    [9, 20]
-                ]
-            },
-        }
-    }, 'waterway-label');
-});
-</script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="./Scripts/maptweets.js"></script>
 
 </body>
 </html>

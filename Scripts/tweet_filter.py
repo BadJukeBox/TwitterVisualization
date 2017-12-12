@@ -1,5 +1,5 @@
 import json
-from geojson import MultiPoint as mp
+from geojson import Feature, FeatureCollection, Point, dump
 import time
 
 tweets_data = []
@@ -17,6 +17,7 @@ bborder = 32.6996
 
 invalid = valid = 0
 times = {}
+tweetz = []
 for n in tweets_data:
     try:
         if n['coordinates'] is not None:
@@ -24,13 +25,21 @@ for n in tweets_data:
             hour = time.strftime('%H', time.strptime(n['created_at'], '%a %b %d %H:%M:%S +0000 %Y'))
             coord = n['coordinates']['coordinates']
             if lborder <= coord[0] <= rborder and bborder <= coord[1] <= tborder:
-                times.setdefault(hour, []).append(coord)
+                # times.setdefault(hour, []).append(coord)
+                n['created_at'] = hour
+                tweetz.append(Feature(geometry=Point(coord), properties={"hour": hour}))
 
     except TypeError as e:
         print('invalid tweet' + str(n) + e)
         invalid += 1
 
 leng = 0
+
+points = FeatureCollection(tweetz)
+with open("../Data/SDGeoPoints.geojson", 'w') as outfile:
+    dump(points, outfile)
+
+'''
 for key, value in times.items():
     print(len(value))
     leng += len(value)
@@ -39,8 +48,9 @@ print(len(tweets_data))
 print(leng)
 print(valid)
 print(invalid)
+
+'''
 # coords = set(map(lambda tweet_info: tweet_info['coordinates']['coordinates'], tweets_data))
 
-# print(mp(coords))
 
 
