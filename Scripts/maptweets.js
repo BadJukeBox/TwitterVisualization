@@ -19,7 +19,7 @@ function filterBy(hour) {
     map.setFilter('tweets-heat', filters);
 
     // Set the label to the hour
-    document.getElementById('Hour').textContent = hours[hour];
+    document.getElementById('Hour').textContent = parseInt(hour);
 }
 
 function pad(n) {
