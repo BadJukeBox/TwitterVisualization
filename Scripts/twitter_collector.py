@@ -5,6 +5,8 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
+import json
+
 # Variables that contains the user credentials to access Twitter API
 creds = open("../credentials.txt", "r")
 access_token = creds.readline().rstrip()
