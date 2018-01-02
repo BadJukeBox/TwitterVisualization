@@ -14,12 +14,19 @@ var hours = [
 ];
 
 function filterBy(hour) {
-
     var filters = ['==', 'hour', hour];
     map.setFilter('tweets-heat', filters);
-
+    hourInt = parseInt(hour)
+    if(hourInt == 12 ){
+        hour = hourInt + ":00 PM"
+    } else if(hourInt > 12){
+        hour = hourInt - 12 + ":00 PM"
+    } else {
+        if(hourInt == 0) hour = 12 + ":00 AM"
+        else hour = hourInt + ":00 AM"
+    }
     // Set the label to the hour
-    document.getElementById('Hour').textContent = hours[hour];
+    document.getElementById('Hour').textContent = hour;
 }
 
 function pad(n) {
