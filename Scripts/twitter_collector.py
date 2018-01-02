@@ -21,7 +21,7 @@ rborder = -117.067
 tborder = 32.8403
 bborder = 32.6996
 
-writeCon = sqlite3.connect('tweets.db')
+writeCon = sqlite3.connect('../Data/tweets.db')
 writeCursor = writeCon.cursor()
 writeCursor.execute('''
     CREATE TABLE IF NOT EXISTS tweets(hour INTEGER, latitude TEXT, longitude TEXT)
@@ -53,6 +53,7 @@ class StdOutListener(StreamListener):
         if tweet is not None:
             writeCursor.execute('''INSERT INTO tweets(hour, latitude, longitude)
                               VALUES(?,?,?)''', (tweet[0], tweet[1], tweet[2]))
+            print('insert successful, values: %s, %s, %s', tweet[0], tweet[1], tweet[2])
             writeCon.commit()
         return True
 
