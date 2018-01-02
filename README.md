@@ -1,15 +1,16 @@
 # TwitterVisualization
-Visualizing tweets in San Diego every 24 hours
+Visualizing tweets in San Diego on average for each hour of the day
 
 Done:
 
-Collecting tweets
-Able to turn them into multipoint GeoJSON
+Collection of tweets
 
-TODO: 
+Storing them in SQLite DB
 
-Tighten data to only San Diego
-Try and find a way to get more data?
-shovel data to JS map
-smoothen and automate the entire process
-upload!
+basic visualization on map in JS on a web page
+
+MapBox integration
+
+TODO:
+
+concurrent access to db
